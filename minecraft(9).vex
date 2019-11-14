@@ -10,10 +10,35 @@ void autonomous( void )
     Bottom_left.spin(directionType::rev);
     task::sleep(1000);
     Vision1.takeSnapshot(1);
-  if(Vision1.largestObject.exist && ) { 
-    Vision1.takeSnapshot(2);
+  if(Vision1.largestObject.exist && VisionSensor.largestObject.width>5) {
+    Brain.Screen.setPenColor(vex::color::white);
+        Brain.Screen.setFillColor(vex::color::green);
+        Brain.Screen.drawRectangle(0,0, 480, 240);
+        Brain.Screen.setCursor(2,6);
+        Brain.Screen.setFont(vex::fontType::mono40);
+        Brain.Screen.print("Forward");
+        Top_right.spin(vex::directionType::fwd);
+        Top_left.spin(vex::directionType::fwd);
+        Bottom_right.spin(vex::directionType::fwd);
+        Bottom_left.spin(vex::directionType::fwd);
+  }
+  else {
+     Vision1.takeSnapshot(2);
+   if(VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
+      Brain.Screen.setPenColor(vex::color::black);
+        Brain.Screen.setFillColor(vex::color::yellow);
+        Brain.Screen.drawRectangle(0,0, 480, 240);
+        Brain.Screen.setCursor(2,6);
+        Brain.Screen.setFont(vex::fontType::mono40);
+        Brain.Screen.print("Right");
+        Top_left.spin(vex::directionType::fwd);
+        Top_Right.spin(vex::directionType::rev);
+        Bottom_left.spin(vex::directionType::fwd);
+        Bottom_right.spin(vex::directionType::rev);
+  }
+    
     Vision1.takeSnapshot(3);
-}
+
 
 void usercontrol( ){
 
