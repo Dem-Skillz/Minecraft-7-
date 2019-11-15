@@ -1,3 +1,5 @@
+#include "robot-config.h"
+
 int main()
 {
      
@@ -8,10 +10,14 @@ void autonomous( void )
     Top_left.spin(directionType::rev);
     Bottom_right.spin(directionType::rev);
     Bottom_left.spin(directionType::rev);
+    
     task::sleep(1000);
+    
     Vision1.takeSnapshot(1);
-  if(Vision1.largestObject.exist && VisionSensor.largestObject.width>5) {
-    Brain.Screen.setPenColor(vex::color::white);
+  
+    if(Vision1.largestObject.exist && VisionSensor.largestObject.width>5) {
+    
+        Brain.Screen.setPenColor(vex::color::white);
         Brain.Screen.setFillColor(vex::color::green);
         Brain.Screen.drawRectangle(0,0, 480, 240);
         Brain.Screen.setCursor(2,6);
@@ -22,10 +28,13 @@ void autonomous( void )
         Bottom_right.spin(vex::directionType::fwd);
         Bottom_left.spin(vex::directionType::fwd);
   }
-  else {
-     Vision1.takeSnapshot(2);
-   if(VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
-      Brain.Screen.setPenColor(vex::color::black);
+  else{
+     
+      Vision1.takeSnapshot(2);
+   
+      if(VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
+      
+        Brain.Screen.setPenColor(vex::color::black);
         Brain.Screen.setFillColor(vex::color::yellow);
         Brain.Screen.drawRectangle(0,0, 480, 240);
         Brain.Screen.setCursor(2,6);
@@ -36,9 +45,30 @@ void autonomous( void )
         Bottom_left.spin(vex::directionType::fwd);
         Bottom_right.spin(vex::directionType::rev);
   }
-    
-    Vision1.takeSnapshot(3);
-
+    else{
+     Vision1.takeSnapshot(3);  
+       if (VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
+        Brain1.Screen.setPenColor(vex::color::white);
+        Brain1.Screen.setFillColor(vex::color::red);
+        Brain1.Screen.drawRectangle(0,0, 480, 240);
+        Brain1.Screen.setCursor(2,6);
+        Brain1.Screen.setFont(vex::fontType::mono40);
+        Brain1.Screen.print("Left");
+        Top_left.spin(vex::directionType::rev);
+        Top_Right.spin(vex::directionType::fwd);
+        Bottom_left.spin(vex::directionType::rev);
+        Bottom_right.spin(vex::directionType::fwd);  
+    else {
+        Top_left.stop(brakeType::brake);
+        Top_Right.stop(brakeType::brake);
+        Bottom_left.stop(brakeType::brake);
+        Bottom_right.stop(brakeType::brake);
+        }
+        }
+        } 
+    task::sleep(100);
+}
+}
 
 void usercontrol( ){
 
@@ -57,9 +87,9 @@ void usercontrol( ){
         Brush2.spin(directionType::fwd);   
         }
         else if(Controller1.ButtonR1.pressing())  {
-        Brush1.setVelocity(50, velocityUnits::pct);
+        Brush1.setVelocity(100, velocityUnits::pct);
         Brush1.spin(directionType::rev);
-        Brush2.setVelocity(50, velocityUnits::pct);
+        Brush2.setVelocity(100, velocityUnits::pct);
         Brush2.spin(directionType::rev);
         }
         else {
@@ -90,4 +120,3 @@ void usercontrol( ){
                      
    }
 }
-    
