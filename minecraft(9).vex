@@ -15,7 +15,7 @@ void autonomous( void )
     
     Vision1.takeSnapshot(1);
   
-    if(Vision1.largestObject.exist && VisionSensor.largestObject.width>5) {
+    if(Vision1.largestObject.exists && Vision1.largestObject.width>5) {
     
         Brain.Screen.setPenColor(vex::color::white);
         Brain.Screen.setFillColor(vex::color::green);
@@ -32,7 +32,7 @@ void autonomous( void )
      
       Vision1.takeSnapshot(2);
    
-      if(VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
+      if(Vision1.largestObject.exists && Vision1.largestObject.width>5) {
       
         Brain.Screen.setPenColor(vex::color::black);
         Brain.Screen.setFillColor(vex::color::yellow);
@@ -41,30 +41,31 @@ void autonomous( void )
         Brain.Screen.setFont(vex::fontType::mono40);
         Brain.Screen.print("Right");
         Top_left.spin(vex::directionType::fwd);
-        Top_Right.spin(vex::directionType::rev);
+        Top_right.spin(vex::directionType::rev);
         Bottom_left.spin(vex::directionType::fwd);
         Bottom_right.spin(vex::directionType::rev);
   }
     else{
      Vision1.takeSnapshot(3);  
-       if (VisionSensor.largestObject.exists && VisionSensor.largestObject.width>5) {
-        Brain1.Screen.setPenColor(vex::color::white);
-        Brain1.Screen.setFillColor(vex::color::red);
-        Brain1.Screen.drawRectangle(0,0, 480, 240);
-        Brain1.Screen.setCursor(2,6);
-        Brain1.Screen.setFont(vex::fontType::mono40);
-        Brain1.Screen.print("Left");
+       if (Vision1.largestObject.exists && Vision1.largestObject.width>5) {
+        Brain.Screen.setPenColor(vex::color::white);
+        Brain.Screen.setFillColor(vex::color::red);
+        Brain.Screen.drawRectangle(0,0, 480, 240);
+        Brain.Screen.setCursor(2,6);
+        Brain.Screen.setFont(vex::fontType::mono40);
+        Brain.Screen.print("Left");
         Top_left.spin(vex::directionType::rev);
-        Top_Right.spin(vex::directionType::fwd);
+        Top_right.spin(vex::directionType::fwd);
         Bottom_left.spin(vex::directionType::rev);
         Bottom_right.spin(vex::directionType::fwd);  
-    else {
+       }
+           else {
         Top_left.stop(brakeType::brake);
-        Top_Right.stop(brakeType::brake);
+        Top_right.stop(brakeType::brake);
         Bottom_left.stop(brakeType::brake);
         Bottom_right.stop(brakeType::brake);
         }
-        }
+        
         } 
     task::sleep(100);
 }
